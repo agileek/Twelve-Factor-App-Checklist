@@ -1,0 +1,129 @@
+= The Twelve Factors
+:toc: left
+:icons: font
+
+== I. https://12factor.net/codebase[Codebase]
+
+> One codebase tracked in revision control, many deploys
+
+image::https://12factor.net/images/codebase-deploys.png[Codebase vs deploys]
+
+* [ ] under VCS
+* [ ] one codebase by app
+
+== II. Dependencies
+
+> Explicitly declare and isolate dependencies
+
+* [ ] Source dependency management
+** `package.json`, `requirement.txt`, `Cargo.toml`,...
+* [ ] Environment dependency management
+** `Vagrantfile`, `Dockerfile`, `VirtualEnv`,...
+
+== III. Config
+
+> Store config in the environment
+
+* [ ] Strict separation of config from code
+* [ ] Can you open source at any moment without compromising any credentials?
+* [ ] Usage of environment variables
+** [ ] Separated config file for SPA
+
+== IV. Backing services
+
+> Treat backing services as attached resources
+
+image::https://12factor.net/images/attached-resources.png[Backing services]
+
+* [ ] swap out a database without changing the app's code
+* [ ] link frontend to another backend without changing the app's code
+
+== V. Build, release, run
+
+> Strictly separate build and run stages
+
+image::https://12factor.net/images/release.png[build release and run]
+
+* [ ] Release have a unique id
+* [ ] __build stage__ converts code into executable bundle without config
+* [ ] __release stage__ combines bundle with deploy's current config
+* [ ] __run stage__  runs the app in the execution environment
+
+== VI. Processes
+
+> Execute the app as one or more stateless processes
+
+* [ ] No sticky sessions
+* [ ] Datastore with time-expiration (Memcached, redis,...)
+* [ ] shared-nothing architecture
+
+== VII. Port binding
+
+> Export services via port binding
+
+* [ ] backend exports HTTP as a service by binding to a port
+* [ ] frontend applications are bundled with their own http server
+* [ ] development environment comes with their own servers
+
+== VIII. Concurrency
+
+> Scale out via the process model
+
+image::https://12factor.net/images/process-types.png[process types]
+
+* [ ] Rely on operating system's process manager (systemd, ..)
+* [ ] Can have multiple instances at the same time
+
+== IX. Disposability
+
+> Maximize robustness with fast startup and graceful shutdown
+
+* [ ] Shutdown gracefully on SIGTERM
+* [ ] Handle sudden death
+* [ ] Startup time takes a few seconds
+
+== X. Dev/prod parity
+
+> Keep development, staging, and production as similar as possible
+
+
+|===
+||Traditional app |Twelve-factor app
+
+|*Time between deploys*
+|Weeks
+|Hours
+
+|*Code authors vs code deployers*
+|Different people
+|Same people
+
+|*Dev vs production environments*
+|Divergent
+|As similar as possible
+|===
+
+* 3 gaps:
+
+** *The time gap*: Time between dev to production
+** *The personnel gap*: Developers write code, ops engineers deploy it.
+** *The tools gap*: Using nginx on dev and Apache in production
+
+
+* [ ] Time between dev and prod < few days
+* [ ] Backend services are the same used in production
+** [ ] Same versions?
+
+
+== XI. Logs
+
+> Treat logs as event streams
+
+* [ ] Output logs to stdout
+* [ ] Does not write or manage logfiles
+
+== XII. Admin processes
+
+> Run admin/management tasks as one-off processes
+
+* [ ] Access to a REPL
