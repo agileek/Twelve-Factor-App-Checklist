@@ -1,4 +1,4 @@
-= The Twelve Factors
+= The Twelve Factor
 :toc: left
 :icons: font
 
